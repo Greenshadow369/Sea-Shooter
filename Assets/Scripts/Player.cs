@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
 
     private void Movement()
     {
-        delta = rawInput * moveSpeed * Time.deltaTime;
+        delta = rawInput * moveSpeed * Time.deltaTime * StatModifier.instance.GetPlayerSpeedModifier();
         Vector2 newPos = new Vector2();
         newPos.x = Mathf.Clamp(transform.position.x + delta.x, minBounds.x + paddingLeft, maxBounds.x - paddingRight);
         newPos.y = Mathf.Clamp(transform.position.y + delta.y, minBounds.y + paddingBottom, maxBounds.y - paddingTop);
@@ -73,10 +73,10 @@ public class Player : MonoBehaviour
 
     }*/
 
-    public void ModifyMoveSpeed(float modifier)
+    /*public void ModifyMoveSpeed(float modifier)
     {
         float temp = moveSpeed;
         moveSpeed = (temp * modifier / 100f) + temp;
         
-    }
+    }*/
 }

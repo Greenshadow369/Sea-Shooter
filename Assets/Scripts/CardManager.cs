@@ -28,7 +28,7 @@ public class CardManager : MonoBehaviour
 
     private void Start()
     {
-        //levelManager.onGameLoad += UseCards;
+        levelManager.onGameLoad += UseCards;
     }
 
 
@@ -118,7 +118,7 @@ public class CardManager : MonoBehaviour
         {
             case 1:
             Debug.Log(player == null);
-                player.moveSpeed = 4f;
+                StatModifier.instance.IncreasePlayerSpeedModifier(50);
                 break;
 
             case 2:
@@ -131,7 +131,7 @@ public class CardManager : MonoBehaviour
 
             case 4:
             Debug.Log(player == null);
-                player.moveSpeed = 5f;
+                StatModifier.instance.IncreasePlayerSpeedModifier(100);
                 break;
 
             default:

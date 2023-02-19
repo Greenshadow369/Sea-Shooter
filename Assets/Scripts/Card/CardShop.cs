@@ -72,7 +72,7 @@ public class CardShop : MonoBehaviour
         {
             if(cardIDBox[i] == -1)
             {
-                cardBox[i].GetComponent<Image>().sprite = null;
+                cardBox[i].GetComponent<Image>().enabled = false;
             }
             else
             {

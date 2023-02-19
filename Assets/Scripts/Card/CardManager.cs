@@ -13,6 +13,7 @@ public class CardManager : MonoBehaviour
     
     static CardManager instance;
     CardBuilder cardBuilder;
+    private List<int> usedIDList;
 
 
     private void Awake()
@@ -22,6 +23,7 @@ public class CardManager : MonoBehaviour
         cardList = new List<UpgradeCardSO>();
         availableCardIDs = new List<int>();
         ownCards = new List<int>();
+        usedIDList = new List<int>();
         cardShop = FindObjectOfType<CardShop>();
         levelManager = FindObjectOfType<LevelManager>();
     }
@@ -99,7 +101,10 @@ public class CardManager : MonoBehaviour
     {
         for(int i = 0; i < cardList.Count; i++)
         {
-            availableCardIDs.Add(cardList[i].cardID);
+            if(!ownCards.Contains(cardList[i].cardID))
+            {
+                availableCardIDs.Add(cardList[i].cardID);
+            }
         }
     }
 
@@ -117,7 +122,11 @@ public class CardManager : MonoBehaviour
         switch(ID)
         {
             case 1:
-                StatModifier.instance.IncreasePlayerSpeedModifier(50);
+                if(!usedIDList.Contains(ID))
+                {
+                    usedIDList.Add(ID);
+                    StatModifier.instance.IncreasePlayerSpeedModifier(50);
+                }
                 break;
 
             case 2:
@@ -129,7 +138,11 @@ public class CardManager : MonoBehaviour
                 break;
 
             case 4:
-                StatModifier.instance.IncreasePlayerSpeedModifier(100);
+                if(!usedIDList.Contains(ID))
+                {
+                    usedIDList.Add(ID);
+                    StatModifier.instance.IncreasePlayerSpeedModifier(100);
+                }
                 break;
 
             default:

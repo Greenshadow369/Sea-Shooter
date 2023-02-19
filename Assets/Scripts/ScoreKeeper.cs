@@ -10,7 +10,7 @@ public class ScoreKeeper : MonoBehaviour
     float leftOverScore = 0f;
     float startingMaxScore;
     int currentLevel = 1;
-    int point = 1;
+    int point = 2;
     static ScoreKeeper instance;
 
     private void Awake() {

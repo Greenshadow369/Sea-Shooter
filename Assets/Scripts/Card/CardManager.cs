@@ -28,7 +28,7 @@ public class CardManager : MonoBehaviour
 
     private void Start()
     {
-        levelManager.onGameLoad += UseCards;
+        
     }
 
 
@@ -103,7 +103,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    private void UseCards()
+    public void UseCards()
     {
         foreach(int ID in ownCards)
         {
@@ -117,7 +117,6 @@ public class CardManager : MonoBehaviour
         switch(ID)
         {
             case 1:
-            Debug.Log(player == null);
                 StatModifier.instance.IncreasePlayerSpeedModifier(50);
                 break;
 
@@ -130,7 +129,6 @@ public class CardManager : MonoBehaviour
                 break;
 
             case 4:
-            Debug.Log(player == null);
                 StatModifier.instance.IncreasePlayerSpeedModifier(100);
                 break;
 

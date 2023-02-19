@@ -6,14 +6,14 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] float sceneLoadDelay = 2f;
-    [SerializeField] Player player;
     ScoreKeeper scoreKeeper;
     AudioPlayer audioPlayer;
-    public delegate void OnGameLoad();
-    public event OnGameLoad onGameLoad;
+    CardManager cardManager;
+
     private void Awake() {
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
+        cardManager = FindObjectOfType<CardManager>();
     }
 
     private void Start() {
@@ -30,10 +30,12 @@ public class LevelManager : MonoBehaviour
     {
         scoreKeeper.ResetScore();
         scoreKeeper.ResetLevel();
-        Debug.Log("game load");
+
         SceneManager.LoadScene("Game");
-        
-        PrepareGame();
+
+        cardManager.UseCards();
+
+        //PrepareGame();
         audioPlayer.PlayGameClip();
         
     }
@@ -66,13 +68,5 @@ public class LevelManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(sceneName);
-    }
-
-    private void PrepareGame()
-    {
-        if(onGameLoad != null)
-        {
-            onGameLoad();
-        }
     }
 }

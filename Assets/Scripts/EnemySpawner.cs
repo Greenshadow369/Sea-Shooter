@@ -10,10 +10,28 @@ public class EnemySpawner : MonoBehaviour
     List<WaveConfigSO> waves;
     WaveConfigSO currentWave;
     EnemyHolderSO currentHolder;
+    LevelManager levelManager;
+    Pathfinder enemyPathfinder;
+    private bool isEndOfSpawner;
+
+    private void Awake()
+    {
+        levelManager = FindObjectOfType<LevelManager>();
+    }
+
     void Start()
     {   
-        
+        isEndOfSpawner = false;
         StartCoroutine(StartEnemyHolders());
+    }
+
+    private void Update()
+    {
+        enemyPathfinder = FindObjectOfType<Pathfinder>();
+        if(enemyPathfinder == null & isEndOfSpawner)
+        {
+            levelManager.LoadShop();
+        }
     }
 
     IEnumerator SpawnEnemyWaves()
@@ -53,7 +71,7 @@ public class EnemySpawner : MonoBehaviour
                 yield return StartCoroutine(SpawnEnemyWaves());
                 yield return new WaitForSeconds(timeBetweenHolders);
             }
-        
+        isEndOfSpawner = true;
     }
 
     public EnemyHolderSO GetCurrentHolder()

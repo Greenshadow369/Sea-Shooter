@@ -30,6 +30,7 @@ public class LevelManager : MonoBehaviour
     {
         scoreKeeper.ResetScore();
         scoreKeeper.ResetLevel();
+        Debug.Log("game load");
         SceneManager.LoadScene("Game");
         
         PrepareGame();

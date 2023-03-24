@@ -1982,7 +1982,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyHolders:
   - {fileID: 11400000, guid: eed1a6eaac835c045ae98e5abfe21980, type: 2}
-  - {fileID: 11400000, guid: ded5ecda017931043904ee960e19d57b, type: 2}
   timeBetweenHolders: 3
 --- !u!4 &1320058279
 Transform:

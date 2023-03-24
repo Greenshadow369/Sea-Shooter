@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,17 +7,18 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] float sceneLoadDelay = 2f;
-    ScoreKeeper scoreKeeper;
     AudioPlayer audioPlayer;
     CardManager cardManager;
+    ScoreKeeper scoreKeeper;
 
     private void Awake() {
-        scoreKeeper = FindObjectOfType<ScoreKeeper>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
         cardManager = FindObjectOfType<CardManager>();
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
     }
 
-    private void Start() {
+    private void Start()
+    {
         /*if(SceneManager.GetActiveScene().name == "Game")
         {
             if(FindObjectOfType<Player>() == null)
@@ -28,14 +30,11 @@ public class LevelManager : MonoBehaviour
 
     public void LoadGame()
     {
-        scoreKeeper.ResetScore();
-        scoreKeeper.ResetLevel();
 
         SceneManager.LoadScene("Game");
 
         cardManager.UseCards();
 
-        //PrepareGame();
         audioPlayer.PlayGameClip();
         
     }
@@ -49,14 +48,14 @@ public class LevelManager : MonoBehaviour
 
     public void LoadGameOver()
     {
-        StartCoroutine(WaitAndLoad("GameOver", sceneLoadDelay));
-        audioPlayer.PlayGameOverClip();
+        StartCoroutine(WaitAndLoad("GameOver", sceneLoadDelay, 
+            audioPlayer.PlayGameOverClip));
     }
 
     public void LoadShop()
     {
-        StartCoroutine(WaitAndLoad("Shop", sceneLoadDelay));
-        audioPlayer.PlayShopClip();
+        StartCoroutine(WaitAndLoad("Shop", sceneLoadDelay, 
+            audioPlayer.PlayShopClip));
     }
 
     public void QuitGame()
@@ -64,9 +63,10 @@ public class LevelManager : MonoBehaviour
         Application.Quit();
     }
 
-    IEnumerator WaitAndLoad(string sceneName, float delay)
+    IEnumerator WaitAndLoad(string sceneName, float delay, Action changeMusicClip)
     {
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(sceneName);
+        changeMusicClip();
     }
 }

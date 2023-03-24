@@ -54,11 +54,33 @@ public class CardShop : MonoBehaviour
 
     private void PrepareCards()
     {
+        // List<int> randomList = new List<int>();
+        // for(int i = 0; i < cardBox.Count; i++)
+        // {
+        //     randomList.Add(cardManager.TakeRandomCardID());
+        // }
+        
+        // foreach(int randomID in randomList)
+        // {
+        //     cardIDBox.Add(randomID);
+        // }
+
+        List<int> randomList = new List<int>();
+        randomList = cardManager.GetRandomAvailableCardIDList();
+
         for(int i = 0; i < cardBox.Count; i++)
         {
-            cardIDBox.Add(cardManager.TakeRandomCardID());
+            if(i < randomList.Count)
+            {
+                //Index is lower than list size
+                cardIDBox.Add(randomList[i]);
+            }
+            else
+            {
+                //There are no cards left to add
+                cardIDBox.Add(-1);
+            }
         }
-        
     }
 
 
@@ -89,7 +111,8 @@ public class CardShop : MonoBehaviour
         {
             if(canBuyCard())
             {
-                onCardBuy(GetActiveToggleID());
+                int cardID = GetActiveToggleID();
+                onCardBuy(cardID);
             }
         }
     }
@@ -124,7 +147,7 @@ public class CardShop : MonoBehaviour
         {
             if(toggles[i].isOn)
             {
-                    return cardIDBox[i];
+                return cardIDBox[i];
             }
         }
         return -1;

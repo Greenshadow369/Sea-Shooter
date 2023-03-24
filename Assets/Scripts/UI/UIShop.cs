@@ -39,9 +39,8 @@ public class UIShop : MonoBehaviour
             scoreKeeper.DecreasePoint(1);
             pointText.text = "Points left: " + scoreKeeper.GetCurrentPoint().ToString();
         
-            cardManager.availableCardIDs.Remove(ID);
-        
-            cardManager.ownCards.Add(ID);
+            cardManager.BuyCard(ID);
+
             cardShop.DisableActiveToggle();
             Debug.Log("available cards: " + cardManager.availableCardIDs.Count);
             Debug.Log("own cards: " + cardManager.ownCards.Count);

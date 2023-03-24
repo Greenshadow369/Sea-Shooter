@@ -65,10 +65,15 @@ public class ScoreKeeper : MonoBehaviour
         currentScore = 0;
     }
 
-    public void ResetLevel()
+    public void ResetPlayerLevel()
     {
         currentLevel = 1;
         maxScore = startingMaxScore;
+    }
+
+    public void ResetPoint()
+    {
+        point = 0;
     }
 
     private void LevelUp()

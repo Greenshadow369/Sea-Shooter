@@ -34,4 +34,9 @@ public class StatModifier : MonoBehaviour
     {
         return playerSpeedModifier / 100 + 1;
     }
+
+    public void ResetPlayerSpeedModifier()
+    {
+        playerSpeedModifier = 0;
+    }
 }

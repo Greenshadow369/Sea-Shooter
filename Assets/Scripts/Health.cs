@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] bool isPlayer;
-    [SerializeField] int health = 100;
+    [SerializeField] float health = 100;
     [SerializeField] float scorePoint = 1f;
     [SerializeField] bool applyCameraShake;
     CameraShake cameraShake;
@@ -13,16 +14,23 @@ public class Health : MonoBehaviour
     AudioPlayer audioPlayer;
     ScoreKeeper scoreKeeper;
     LevelManager levelManager;
+    StatModifier statModifier;
     
     private void Awake() {
         cameraShake = Camera.main.GetComponent<CameraShake>();
         audioPlayer = FindObjectOfType<AudioPlayer>();
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
         levelManager = FindObjectOfType<LevelManager>();
+        statModifier = FindObjectOfType<StatModifier>();
+        visualFX = FindObjectOfType<VisualFX>();
     }
 
     private void Start() {
-        visualFX = FindObjectOfType<VisualFX>();
+        if(isPlayer)
+        {
+            health = health * statModifier.GetPlayerMaxHealthModifier();
+        }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -37,7 +45,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    private void TakeDamage(int damage)
+    private void TakeDamage(float damage)
     {
         health -= damage;
         

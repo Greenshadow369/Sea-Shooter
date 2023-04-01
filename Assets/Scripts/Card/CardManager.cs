@@ -156,7 +156,11 @@ public class CardManager : MonoBehaviour
                 break;
 
             case 3:
-                
+                if(!usedIDList.Contains(ID))
+                {
+                    usedIDList.Add(ID);
+                    StatModifier.instance.IncreasePlayerMaxHealthModifier(50);
+                }
                 break;
 
             case 4:

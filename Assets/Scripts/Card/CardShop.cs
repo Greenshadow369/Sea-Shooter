@@ -45,11 +45,7 @@ public class CardShop : MonoBehaviour
 
     private void Update()
     {
-        if(toggleGroup.AnyTogglesOn())
-        {
-            GetCardInformation(GetActiveToggleID());
-        }
-        
+        GetCardInformation(GetActiveToggleID());
     }
 
     private void PrepareCards()
@@ -67,10 +63,23 @@ public class CardShop : MonoBehaviour
 
         List<int> randomList = new List<int>();
         randomList = cardManager.GetRandomAvailableCardIDList();
+        //randomList = (randomList == null) ? cardManager.GetRandomAvailableCardIDList() : randomList;
 
+        //Get count of randomList
+        int randomListCount;
+        if(randomList == null)
+        {
+            randomListCount = 0;
+        }
+        else
+        {
+            randomListCount = randomList.Count;
+        }
+
+        //Put each random ID in card box
         for(int i = 0; i < cardBox.Count; i++)
         {
-            if(i < randomList.Count)
+            if(i < randomListCount)
             {
                 //Index is lower than list size
                 cardIDBox.Add(randomList[i]);
@@ -112,7 +121,11 @@ public class CardShop : MonoBehaviour
             if(canBuyCard())
             {
                 int cardID = GetActiveToggleID();
-                onCardBuy(cardID);
+                //Card ID is valid
+                if(cardID != -1)
+                {
+                    onCardBuy(cardID);
+                }
             }
         }
     }
@@ -128,7 +141,8 @@ public class CardShop : MonoBehaviour
         {
             if(toggles[i].isOn)
             {
-                    toggles[i].interactable = false;
+                toggles[i].interactable = false;
+                toggles[i].isOn = false;
             }
         }
     }
@@ -137,6 +151,7 @@ public class CardShop : MonoBehaviour
     {
         if(onCardSelect != null)
         {
+            ShowSelectedVisual();
             onCardSelect(ID);
         }
     }
@@ -160,5 +175,20 @@ public class CardShop : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void ShowSelectedVisual()
+    {
+        for(int i = 0; i < cardBox.Count; i++)
+        {
+            if(toggles[i].isOn)
+            {
+                cardBox[i].GetComponent<Image>().color = Color.yellow;
+            }
+            else
+            {
+                cardBox[i].GetComponent<Image>().color = Color.white;
+            }
+        }
     }
 }

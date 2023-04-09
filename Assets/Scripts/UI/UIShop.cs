@@ -35,15 +35,14 @@ public class UIShop : MonoBehaviour
 
     private void BuyCard(int ID)
     {
+        scoreKeeper.DecreasePoint(1);
+        pointText.text = "Points left: " + scoreKeeper.GetCurrentPoint().ToString();
         
-            scoreKeeper.DecreasePoint(1);
-            pointText.text = "Points left: " + scoreKeeper.GetCurrentPoint().ToString();
-        
-            cardManager.BuyCard(ID);
+        cardManager.BuyCard(ID);
 
-            cardShop.DisableActiveToggle();
-            Debug.Log("available cards: " + cardManager.availableCardIDs.Count);
-            Debug.Log("own cards: " + cardManager.ownCards.Count);
+        cardShop.DisableActiveToggle();
+        Debug.Log("available cards: " + cardManager.availableCardIDs.Count);
+        Debug.Log("own cards: " + cardManager.ownCards.Count);
     }
     
 
@@ -60,8 +59,5 @@ public class UIShop : MonoBehaviour
             titleText.text = "";
             descriptionText.text = "";
         }
-        
     }
-
-    
 }

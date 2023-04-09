@@ -47,7 +47,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rawCardList:
   - {fileID: 11400000, guid: 2a2bc4b8beec08b4ca88b9d14f24d0c9, type: 2}
-  - {fileID: 11400000, guid: c91b2fd8d670d2c4e8bf7de8cc488173, type: 2}
   - {fileID: 11400000, guid: 2e83093b115384641b79371bd15e91ae, type: 2}
   - {fileID: 11400000, guid: f83d07cb25a23ff48891c5b571849b5f, type: 2}
 --- !u!114 &4634071719935780386

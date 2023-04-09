@@ -15,6 +15,6 @@ MonoBehaviour:
   cardTitle: Faster Swimming
   sprite: {fileID: 1170821142, guid: bf18c9bb5a510c645880e98a292b64f4, type: 3}
   cardID: 1
-  modifier: 50
+  modifier: 30
   isUsed: 1
-  cardDescription: Swim 20% faster
+  cardDescription: Swim 50% faster

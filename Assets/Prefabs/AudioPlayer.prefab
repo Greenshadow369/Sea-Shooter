@@ -45,11 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d36b80a64a477164cbb2a49f0af241fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootingClip: {fileID: 8300000, guid: 45a0a59410a0d5f49bc4a7bd6c17818b, type: 3}
+  shootingClip: {fileID: 0}
   shootingVolume: 0.5
-  hittingClip: {fileID: 8300000, guid: 00e3b63699f45294e91592fd8388223b, type: 3}
+  hittingClip: {fileID: 0}
   hittingVolume: 0.4
-  defeatedClip: {fileID: 8300000, guid: 0ea6ad087972c944f83e9b775f165ebe, type: 3}
+  defeatedClip: {fileID: 0}
   defeatedVolume: 0.9
   mainMenuClip: {fileID: 8300000, guid: 6bbe03acac3584b4488ec3bc7eebbabb, type: 3}
   mainMenuVolume: 0.4

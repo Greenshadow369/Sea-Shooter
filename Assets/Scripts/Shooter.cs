@@ -11,6 +11,8 @@ public class Shooter : MonoBehaviour
     [SerializeField] float projectileLifeTime = 5f;
     [SerializeField] float firingRate = 0.2f;
     [SerializeField] Transform shootingPoint;
+    [SerializeField] float projectileSpacing;
+    [SerializeField] float projectileAngle;
     
     [Header("AI")]
     [SerializeField] float AIFiringRate = 2f;
@@ -22,9 +24,11 @@ public class Shooter : MonoBehaviour
 
     Coroutine firingCoroutine;
     AudioPlayer audioPlayer;
+    UnitState unitState;
 
     private void Awake() {
         audioPlayer = FindObjectOfType<AudioPlayer>();
+        unitState = GetComponent<UnitState>();
     }
 
     private void Start() {
@@ -58,14 +62,89 @@ public class Shooter : MonoBehaviour
     {
         while(true)
         {
-            GameObject instance = Instantiate(projectilePrefab, transform.position,
-                                                Quaternion.identity);
-            Rigidbody2D rb = instance.GetComponent<Rigidbody2D>();
-            if(rb != null)
+            GameObject instance;
+            Rigidbody2D rb;
+            Vector3 distance = new Vector3(0.25f, 0, 0);
+            Debug.Log(unitState != null);
+            switch(unitState.GetCurrentShootingState())
             {
-                rb.velocity = transform.up * projectileSpeed;
+                case UnitState.ShootingState.OneStraight:
+                    instance = Instantiate(projectilePrefab, transform.position,
+                                                                        Quaternion.identity);
+                    rb = instance.GetComponent<Rigidbody2D>();
+
+                    rb.velocity = transform.up * projectileSpeed;
+
+                    Destroy(instance, projectileLifeTime);
+                    break;
+
+                case UnitState.ShootingState.TwoStraight:
+                    for(int i = 0; i < 2; i++)
+                    {
+                        instance = Instantiate(projectilePrefab, 
+                            transform.position - distance + (2 * i) * distance, Quaternion.identity);
+                        rb = instance.GetComponent<Rigidbody2D>();
+
+                        rb.velocity = transform.up * projectileSpeed;
+
+                        Destroy(instance, projectileLifeTime);
+                    }
+                    break;
+                    
+                case UnitState.ShootingState.ThreeStraight:
+                    for(int i = 0; i < 3; i++)
+                    {
+                        instance = Instantiate(projectilePrefab, 
+                            transform.position - distance + i * distance, Quaternion.identity);
+                        rb = instance.GetComponent<Rigidbody2D>();
+
+                        rb.velocity = transform.up * projectileSpeed;
+
+                        Destroy(instance, projectileLifeTime);
+                    }
+                    break;
+
+                case UnitState.ShootingState.TwoSkewed:
+                    for(int i = 0; i < 2; i++)
+                    {
+                        instance = Instantiate(projectilePrefab, transform.position,
+                                                                            Quaternion.identity);
+                        rb = instance.GetComponent<Rigidbody2D>();
+                        if(i == 0)
+                        {
+                            Vector3 angle = new Vector3(0.25f, 1, 0);
+                            rb.velocity = angle * projectileSpeed;
+                        }
+                        else
+                        {
+                            Vector3 angle = new Vector3(-0.25f, 1, 0);
+                            rb.velocity = angle * projectileSpeed;
+                        }
+
+                        Destroy(instance, projectileLifeTime);
+                    }
+                    break;
+
+                case UnitState.ShootingState.ThreeSkewed:
+                    
+                    for(int i = 0; i < 3; i++)
+                    {
+                        Vector3 angle3 = new Vector3(-0.25f + i * 0.25f, 1, 0);
+
+                        instance = Instantiate(projectilePrefab, transform.position,
+                                                                        Quaternion.identity);
+                        rb = instance.GetComponent<Rigidbody2D>();
+
+                        rb.velocity = angle3 * projectileSpeed;
+
+                        Destroy(instance, projectileLifeTime);
+                    }
+                    break;
+
+                default:
+                    break;
             }
-            Destroy(instance, projectileLifeTime);
+               
             if(useAI)
             {
                 firingRate = GetRandomFiringRate();

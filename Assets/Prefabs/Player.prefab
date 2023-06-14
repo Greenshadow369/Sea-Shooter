@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: -7815383169675496056}
   - component: {fileID: -7864493612700567845}
   - component: {fileID: -7760453036297948017}
+  - component: {fileID: -1898858220189457776}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -271,8 +272,23 @@ MonoBehaviour:
   projectileLifeTime: 5
   firingRate: 0.2
   shootingPoint: {fileID: 1846553971978617778}
+  projectileSpacing: 0
+  projectileAngle: 0
   AIFiringRate: 2
   firingRateVariance: 1
   minimumFiringRate: 2
   useAI: 0
   isFiring: 0
+--- !u!114 &-1898858220189457776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7808428049373424112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b81211e9565ab5b4c8985a948da34b73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootingState: 20

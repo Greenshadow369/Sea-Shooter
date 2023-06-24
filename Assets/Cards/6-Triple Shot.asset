@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c452e09bd1075f4e9caa01f7b8128ab, type: 3}
+  m_Name: 6-Triple Shot
+  m_EditorClassIdentifier: 
+  cardTitle: Triple Shot
+  sprite: {fileID: 1554274839, guid: bf18c9bb5a510c645880e98a292b64f4, type: 3}
+  cardID: 6
+  prequesiteCardList:
+  - {fileID: 11400000, guid: 4ee069ea4f098a54192479179b559863, type: 2}
+  modifier: 0
+  cardType: 1
+  cardDescription: Shoot 3 projectiles

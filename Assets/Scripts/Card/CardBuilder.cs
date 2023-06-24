@@ -46,6 +46,14 @@ public class CardBuilder : MonoBehaviour
                 card.cardDescription = "Swim an additonal " + card.modifier + "% " + "faster";
                 break;
 
+            case 5:
+                card.cardDescription = "Shoot 2 projectiles";
+                break;
+
+            case 6:
+                card.cardDescription = "Shoot 3 projectiles";
+                break;
+
             default:
                 Debug.Log("There are no card with this ID " + "ID: " + card.cardID);
                 break;

@@ -121,12 +121,36 @@ public class CardManager : MonoBehaviour
     {
         for(int i = 0; i < cardList.Count; i++)
         {
-            if(!ownCards.Contains(cardList[i].cardID) 
-                && !availableCardIDs.Contains(cardList[i].cardID))
+            if(ownCards.Contains(cardList[i].cardID) 
+                || availableCardIDs.Contains(cardList[i].cardID))
             {
-                //Automatically add this card if not yet added or own
-                availableCardIDs.Add(cardList[i].cardID);
+                //This card is already added or owned
+                continue;
             }
+
+            var prequesiteIDlist = new List<int>();
+            foreach(UpgradeCardSO card in cardList[i].prequesiteCardList)
+            {
+                //Create a list of prequesite ID
+                prequesiteIDlist.Add(card.cardID);
+            }
+
+            bool isNotAvailable = false;
+            foreach(int ID in prequesiteIDlist)
+            {
+                if(!ownCards.Contains(ID))
+                {
+                    //one of the requirement is not met
+                    isNotAvailable = true;
+                }
+            }
+
+            if(isNotAvailable)
+            {
+                continue;
+            }
+
+            availableCardIDs.Add(cardList[i].cardID);
         }
     }
 
@@ -140,26 +164,41 @@ public class CardManager : MonoBehaviour
 
     private void ApplyCardEffect(int ID)
     {
+        Player player = FindObjectOfType<Player>();
+        UnitState unitState = player.GetComponent<UnitState>();
+        
+        UpgradeCardSO card = FindCard(ID);
+        
         Debug.Log("applied effect");
+        if(card.IsCardType(UpgradeCardSO.CardType.Evolve) && card.IsUpgraded())
+        {
+            //The card is a weaker version of an own card
+            return;
+        }
+
         switch(ID)
         {
             case 1:
                 if(!usedIDList.Contains(ID))
                 {
                     usedIDList.Add(ID);
-                    StatModifier.instance.IncreasePlayerSpeedModifier(50);
+                    StatModifier.instance.IncreasePlayerSpeedModifier(card.modifier);
                 }
                 break;
 
             case 2:
-                
+                if(!usedIDList.Contains(ID))
+                {
+                    usedIDList.Add(ID);
+                    StatModifier.instance.IncreasePlayerProjectileDamageModifier(card.modifier);
+                }
                 break;
 
             case 3:
                 if(!usedIDList.Contains(ID))
                 {
                     usedIDList.Add(ID);
-                    StatModifier.instance.IncreasePlayerMaxHealthModifier(50);
+                    StatModifier.instance.IncreasePlayerMaxHealthModifier(card.modifier);
                 }
                 break;
 
@@ -167,8 +206,20 @@ public class CardManager : MonoBehaviour
                 if(!usedIDList.Contains(ID))
                 {
                     usedIDList.Add(ID);
-                    StatModifier.instance.IncreasePlayerSpeedModifier(100);
+                    StatModifier.instance.IncreasePlayerSpeedModifier(card.modifier);
                 }
+                break;
+
+            case 5:
+                //Apply at every stage
+                usedIDList.Add(ID);
+                unitState.SetTwoSkewed();
+                break;
+
+            case 6:
+                //Apply at every stage
+                usedIDList.Add(ID);
+                unitState.SetThreeSkewed();
                 break;
 
             default:
@@ -193,12 +244,24 @@ public class CardManager : MonoBehaviour
         ownCards.Remove(cardID);
         availableCardIDs.Add(cardID);
         usedIDList.Remove(cardID);
+
+        foreach(UpgradeCardSO card in cardList)
+        {
+            card.ResetCard();
+        }
     }
     
     public void BuyCard(int cardID)
     {
         availableCardIDs.Remove(cardID);
         ownCards.Add(cardID);
+
+        UpgradeCardSO boughtCard = FindCard(cardID);
+        Debug.Log(cardID + " " + boughtCard.IsUpgraded());
+        foreach(UpgradeCardSO card in boughtCard.prequesiteCardList)
+        {  
+            card.UpgradeCard();
+        }
     }
 
     public void Shuffle<T>(IList<T> list)

@@ -30,10 +30,12 @@ public class LevelManager : MonoBehaviour
 
     public void LoadGame()
     {
-
-        SceneManager.LoadScene("Game");
-
-        cardManager.UseCards();
+        /*This solution is found online, which make UseCards() 
+        run after scene fully loaded (with objects)*/
+        var op = SceneManager.LoadSceneAsync("Game");
+        op.completed += (x) => {
+            cardManager.UseCards();
+        };
 
         audioPlayer.PlayGameClip();
         

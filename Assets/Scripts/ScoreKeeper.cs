@@ -73,7 +73,7 @@ public class ScoreKeeper : MonoBehaviour
 
     public void ResetPoint()
     {
-        point = 0;
+        point = 1;
     }
 
     private void LevelUp()

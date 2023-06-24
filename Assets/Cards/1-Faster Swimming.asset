@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c452e09bd1075f4e9caa01f7b8128ab, type: 3}
-  m_Name: New Upgrade Card
+  m_Name: 1-Faster Swimming
   m_EditorClassIdentifier: 
-  cardTitle: 
-  sprite: {fileID: 0}
-  cardID: 0
-  modifier: 0
-  isUsed: 1
-  cardDescription: 
+  cardTitle: Faster Swimming
+  sprite: {fileID: 1170821142, guid: bf18c9bb5a510c645880e98a292b64f4, type: 3}
+  cardID: 1
+  prequesiteCardList: []
+  modifier: 50
+  cardType: 0
+  cardDescription: Swim 50% faster

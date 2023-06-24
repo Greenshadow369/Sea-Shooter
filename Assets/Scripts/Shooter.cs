@@ -65,12 +65,20 @@ public class Shooter : MonoBehaviour
             GameObject instance;
             Rigidbody2D rb;
             Vector3 distance = new Vector3(0.25f, 0, 0);
-            Debug.Log(unitState != null);
+
             switch(unitState.GetCurrentShootingState())
             {
                 case UnitState.ShootingState.OneStraight:
                     instance = Instantiate(projectilePrefab, transform.position,
                                                                         Quaternion.identity);
+                    
+                    //For player damage modifying
+                    if(!useAI)
+                    {
+                        DamageDealer damageDealer = instance.GetComponent<DamageDealer>();
+                        damageDealer.IncreaseProjectileDamageMultiflier(StatModifier.instance.GetPlayerProjectileDamageModifier());
+                    }
+
                     rb = instance.GetComponent<Rigidbody2D>();
 
                     rb.velocity = transform.up * projectileSpeed;
@@ -83,6 +91,14 @@ public class Shooter : MonoBehaviour
                     {
                         instance = Instantiate(projectilePrefab, 
                             transform.position - distance + (2 * i) * distance, Quaternion.identity);
+
+                        //For player damage modifying
+                        if(!useAI)
+                        {
+                            DamageDealer damageDealer = instance.GetComponent<DamageDealer>();
+                            damageDealer.IncreaseProjectileDamageMultiflier(StatModifier.instance.GetPlayerProjectileDamageModifier());
+                        }
+                            
                         rb = instance.GetComponent<Rigidbody2D>();
 
                         rb.velocity = transform.up * projectileSpeed;
@@ -96,6 +112,14 @@ public class Shooter : MonoBehaviour
                     {
                         instance = Instantiate(projectilePrefab, 
                             transform.position - distance + i * distance, Quaternion.identity);
+
+                        //For player damage modifying
+                        if(!useAI)
+                        {
+                            DamageDealer damageDealer = instance.GetComponent<DamageDealer>();
+                            damageDealer.IncreaseProjectileDamageMultiflier(StatModifier.instance.GetPlayerProjectileDamageModifier());
+                        }
+
                         rb = instance.GetComponent<Rigidbody2D>();
 
                         rb.velocity = transform.up * projectileSpeed;
@@ -109,6 +133,14 @@ public class Shooter : MonoBehaviour
                     {
                         instance = Instantiate(projectilePrefab, transform.position,
                                                                             Quaternion.identity);
+
+                        //For player damage modifying
+                        if(!useAI)
+                        {
+                            DamageDealer damageDealer = instance.GetComponent<DamageDealer>();
+                            damageDealer.IncreaseProjectileDamageMultiflier(StatModifier.instance.GetPlayerProjectileDamageModifier());
+                        }
+
                         rb = instance.GetComponent<Rigidbody2D>();
                         if(i == 0)
                         {
@@ -133,6 +165,14 @@ public class Shooter : MonoBehaviour
 
                         instance = Instantiate(projectilePrefab, transform.position,
                                                                         Quaternion.identity);
+
+                        //For player damage modifying
+                        if(!useAI)
+                        {
+                            DamageDealer damageDealer = instance.GetComponent<DamageDealer>();
+                            damageDealer.IncreaseProjectileDamageMultiflier(StatModifier.instance.GetPlayerProjectileDamageModifier());
+                        }
+
                         rb = instance.GetComponent<Rigidbody2D>();
 
                         rb.velocity = angle3 * projectileSpeed;
@@ -143,6 +183,8 @@ public class Shooter : MonoBehaviour
 
                 default:
                     break;
+
+                
             }
                
             if(useAI)

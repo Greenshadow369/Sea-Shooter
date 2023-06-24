@@ -291,4 +291,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b81211e9565ab5b4c8985a948da34b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootingState: 20
+  shootingState: 10

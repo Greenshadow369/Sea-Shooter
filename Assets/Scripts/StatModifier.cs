@@ -7,6 +7,7 @@ public class StatModifier : MonoBehaviour
     public static StatModifier instance;
     private float playerSpeedModifier;
     private float playerMaxHealthModifier;
+    private float playerProjectileDamageModifier;
 
     private void Awake() {
         ManageSingleton();
@@ -52,6 +53,21 @@ public class StatModifier : MonoBehaviour
     }
 
     public void ResetPlayerMaxHealthModifier()
+    {
+        playerMaxHealthModifier = 0;
+    }
+
+    public void IncreasePlayerProjectileDamageModifier(float modifier)
+    {
+        playerMaxHealthModifier += modifier;
+    }
+
+    public float GetPlayerProjectileDamageModifier()
+    {
+        return playerMaxHealthModifier / 100 + 1;
+    }
+
+    public void ResetPlayerProjectileDamageModifier()
     {
         playerMaxHealthModifier = 0;
     }

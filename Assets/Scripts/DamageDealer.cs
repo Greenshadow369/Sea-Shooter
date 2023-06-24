@@ -11,6 +11,11 @@ public class DamageDealer : MonoBehaviour
         return damage;
     }
 
+    public void IncreaseProjectileDamageMultiflier(float modifier)
+    {
+        damage = damage * modifier;
+    }
+
     public void Hit()
     {
         Destroy(gameObject);
